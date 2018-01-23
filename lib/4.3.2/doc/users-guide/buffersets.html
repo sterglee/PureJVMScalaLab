@@ -1,0 +1,32 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Buffer Sets</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="jEdit 4.3 User's Guide"><link rel="up" href="basics.html" title="Chapter 3. jEdit Basics"><link rel="prev" href="buffers.html" title="Switching Buffers"><link rel="next" href="docking.html" title="Window Docking"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Buffer Sets</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="buffers.html">Prev</a> </td><th width="60%" align="center">Chapter 3. jEdit Basics</th><td width="20%" align="right"> <a accesskey="n" href="docking.html">Next</a></td></tr></table><hr></div><div class="section" title="Buffer Sets"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="buffersets"></a>Buffer Sets</h2></div></div></div><p> The buffer sets feature helps keep the buffer lists local and manageable when using
+        jEdit in a multiple-View and multiple-EditPane environment. </p><p> As mentioned in the previous section, each EditPane can show a Buffer Switcher, which
+        displays the contents of a BufferSet. In jEdit 4.2, all EditPane buffer switchers
+        showed the same BufferSet: a global list of all buffers that were opened from any EditPane in any View.
+        When using many Views and EditPanes, this resulted in large lists of buffers, and made
+        the next/previous buffer actions useless with many Views, EditPanes and Buffers.
+        </p><p> In jEdit 4.3, it is possible to have more narrow scopes for the BufferSets
+        of an EditPane. This makes the 'next-buffer' and 'previous-buffer' actions switch
+        between buffers that are local to the view or pane. </p><p>
+        The three BufferSet scopes are: </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p> <span class="bold"><strong>Global</strong></span>: Includes all buffers open from any EditPane. </p></li><li class="listitem"><p> <span class="bold"><strong>View</strong></span>: EditPanes in the same
+            View share the same BufferSet. Opening a buffer in one View will not affect the
+            other views. </p></li><li class="listitem"><p><span class="bold"><strong>EditPane</strong></span>: Each EditPane can have its
+            own independent BufferSet.
+            </p></li></ol></div><p> The Buffer Set scope can be Global, View, or EditPane, and can be
+        changed from many places. The default can be set from
+        <span class="guimenu"><strong>Utilities</strong></span>&gt;<span class="guimenuitem"><strong>Global Options</strong></span>
+        &gt; <span class="guimenuitem"><strong>View</strong></span> &gt; <span class="guilabel"><strong>BufferSet scope for new EditPanes</strong></span>.
+        </p><p> A new BufferSet can be created in a number of ways, such as when a new
+        View is created (and the default BufferSet scope is not global) or when the
+        View is split (and the default BufferSet scope is EditPane), or when the
+        BufferSet scope is changed to EditPane via the statusbar or menu action. </p><p> New BufferSets are initially empty, or populated with the current buffer only, or a copy of the
+        existing BufferSet. This behavior can be changed from
+        <span class="guimenuitem"><strong>Global Options</strong></span> &gt; <span class="guimenuitem"><strong>View</strong></span> &gt; <span class="guilabel"><strong>New (View/EditPane) BufferSets contain: copies of current BufferSet/Current
+        Buffer/Untitled Buffer </strong></span>.</p><p> <span class="guimenu"><strong>File</strong></span> &gt; <span class="guimenuitem"><strong>Close</strong></span> behavior has changed in 4.3pre15: now it will remove the current buffer from the EditPane's BufferSet only. If it
+        was the last BufferSet to contain that buffer, the buffer is also closed. </p><p> The <span class="guimenu"><strong> File </strong></span> &gt; <span class="guimenuitem"><strong>Close (global)</strong></span> action closes the buffer in all EditPanes, as the regular <span class="guimenu"><strong> File </strong></span> &gt; <span class="guimenuitem"><strong>Close</strong></span> action did before. </p><p> When <span class="guimenuitem"><strong>Exclusive Buffersets</strong></span> are enabled, any time a buffer is opened from one EditPane, it should be automatically closed in other EditPanes which use a disjoint (non-intersecting) BufferSet. </p><p> <span class="guimenuitem"><strong>Clear BufferSet except active</strong></span> will clear the BufferSet of the
+        current EditPane by performing a <span class="guimenuitem"><strong>Close</strong></span> on all items except those buffers which are displayed in another active EditPane. </p><h3><a name="id469184"></a> Switching Bufferset Scopes </h3><p> The statusbar shows you which BufferSet scope is active
+        (look for the letter "G", "E" or "V"). Double-clicking on that
+        will allow you to change the scope. Currently, it changes
+        your scope for the current editpane, but this behavior will someday change
+        and cause a global scope-change on all editapnes immediately.
+        </p><p> The scope for BufferSets can also be changed from <span class="guimenu"><strong>View</strong></span>&gt;<span class="guimenu"><strong>Buffer Sets</strong></span> &gt;
+        <span class="guimenu"><strong>(Global|View|EditPane) Buffer Set</strong></span>. </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="buffers.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="basics.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="docking.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Switching Buffers </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Window Docking</td></tr></table></div></body></html>

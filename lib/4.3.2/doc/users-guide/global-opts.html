@@ -1,0 +1,102 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>The Global Options Dialog Box</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="jEdit 4.3 User's Guide"><link rel="up" href="customizing.html" title="Chapter 7. Customizing jEdit"><link rel="prev" href="buffer-local.html" title="Buffer-Local Properties"><link rel="next" href="settings-directory.html" title="The jEdit Settings Directory"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Global Options Dialog Box</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="buffer-local.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Customizing jEdit</th><td width="20%" align="right"> <a accesskey="n" href="settings-directory.html">Next</a></td></tr></table><hr></div><div class="section" title="The Global Options Dialog Box"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="global-opts"></a>The Global Options Dialog Box</h2></div></div></div><p><span class="guimenu"><strong>Utilities</strong></span>&gt;<span class="guimenuitem"><strong>Global
+        Options</strong></span> displays the global options dialog box. The dialog
+        box is divided into several panes, each pane containing a set of related
+        options. Use the list on the left of the dialog box to switch between
+        panes. Only panes created by jEdit are described here; some plugins add
+        their own option panes, and information about them can be found in the
+        documentation for the plugins in question.</p><div class="section" title="The General Pane"><div class="titlepage"><div><div><h3 class="title"><a name="general-pane"></a>The General Pane</h3></div></div></div><p>The <span class="guibutton"><strong>General</strong></span> pane contains various
+            settings, such as the default line separator, the number of recent
+            files to remember, if the buffer list should be sorted, and so
+            on.</p></div><div class="section" title="The Abbreviations Pane"><div class="titlepage"><div><div><h3 class="title"><a name="abbrevs-pane"></a>The Abbreviations Pane</h3></div></div></div><a class="indexterm" name="id491002"></a><p>The <span class="guibutton"><strong>Abbreviations</strong></span> option pane can be
+            used to enable or disable automatic abbreviation expansion, and to
+            edit currently defined abbreviations.</p><p>The combo box labelled <span class="quote">&#8220;<span class="quote">Abbrev set</span>&#8221;</span> selects the
+            abbreviation set to edit. The first entry, <span class="quote">&#8220;<span class="quote">global</span>&#8221;</span>,
+            contains abbreviations available in all edit modes. The subsequent
+            entries correspond to each mode's local set of abbreviations.</p><p>To change an abbreviation or its expansion, either
+            double-click the appropriate table entry, or click a table entry and
+            then click the <span class="guibutton"><strong>Edit</strong></span> button. This will display
+            a dialog box for modifying the abbreviation.</p><p>The <span class="guibutton"><strong>Add</strong></span> button displays a dialog box
+            where you can define a new abbreviation. The
+            <span class="guibutton"><strong>Remove</strong></span> button removes the currently selected
+            abbreviation from the list.</p><p>See <a class="xref" href="abbrevs.html#positional-params" title="Positional Parameters">the section called &#8220;Positional Parameters&#8221;</a> for information about
+            positional parameters in abbreviations.</p></div><div class="section" title="The Appearance Pane"><div class="titlepage"><div><div><h3 class="title"><a name="appearance-pane"></a>The Appearance Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Appearance</strong></span> pane can be used to
+            change the appearance of user interface controls such as buttons,
+            labels and menus. It can also be used to change the docking
+            framework (the dockable window manager). The number of items
+            retained in history text fields can also be set here; see
+            <a class="xref" href="history.html" title="Appendix C. History Text Fields">Appendix C, <i>History Text Fields</i></a>.</p><p>Note that changes to certain settings such as the Swing look
+            and feel and the docking framework require a restart of jEdit to
+            take effect.</p></div><div class="section" title="The Autosave and Backup Pane"><div class="titlepage"><div><div><h3 class="title"><a name="autosave-backups-pane"></a>The Autosave and Backup Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Autosave</strong></span> option pane contains
+            settings for the autosave and backup features. See <a class="xref" href="saving.html#autosave" title="Autosave and Crash Recovery">the section called &#8220;Autosave and Crash Recovery&#8221;</a> and <a class="xref" href="saving.html#backups" title="Backups">the section called &#8220;Backups&#8221;</a>.</p></div><div class="section" title="The Context Menu Pane"><div class="titlepage"><div><div><h3 class="title"><a name="context-pane"></a>The Context Menu Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Context Menu</strong></span> option pane edits the
+            text area's right-click context menu. See <a class="xref" href="views.html" title="Multiple Views">the section called &#8220;Multiple Views&#8221;</a>.</p></div><div class="section" title="The Docking Pane"><div class="titlepage"><div><div><h3 class="title"><a name="docking-pane"></a>The Docking Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Docking</strong></span> option pane specifies
+            docking location for various dockable windows. Another way to
+            specify docking locations is to use the popup menus associated with
+            each dockable window; see <a class="xref" href="docking.html" title="Window Docking">the section called &#8220;Window Docking&#8221;</a>.</p></div><div class="section" title="The Editing Pane"><div class="titlepage"><div><div><h3 class="title"><a name="editing-pane"></a>The Editing Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Editing</strong></span> option pane contains
+            settings such as the tab size, syntax highlighting and soft tabs on
+            a global or mode-specific basis. </p><p>Changing options from this optionpane does not change XML mode definition files on disk; it merely writes values to the user properties file which
+            override those set in mode files. To find out how to edit mode files directly, see <a class="xref" href="writing-modes-part.html" title="Part II. Writing Edit Modes">Part II, &#8220;Writing Edit Modes&#8221;</a>. Some of these options can be further overridden on an individual file basis through the use of buffer-local properties. </p><p>The <code class="literal">File name
+            glob</code> and <code class="literal">First line glob</code> text
+            fields let you specify a glob pattern that names and first lines of
+            buffers will be matched against to determine the edit mode. See
+            <a class="xref" href="globs.html" title="Appendix D. Glob Patterns">Appendix D, <i>Glob Patterns</i></a> for information about glob patterns.</p><p> The <code class="literal">Extra Word Characters</code> allows you to set the <code class="literal">noLineSep</code> buffer property on a mode-wide basis, allowing you to define what is considered part of a word when double-clicking on it in the text area.
+            </p><p> The <code class="literal">Deep Indent</code> option instructs jEdit to indent subsequent lines so that they line up with the open bracket on the previous line. </p></div><div class="section" title="The Encodings Pane"><div class="titlepage"><div><div><h3 class="title"><a name="encodings-pane"></a>The Encodings Pane</h3></div></div></div><p>This option pane is new to jEdit 4.3, and offers international
+            users of jEdit many flexible options for defining how Encodings are
+            handled in jEdit. See <a class="xref" href="encodings.html" title="Character Encodings">the section called &#8220;Character Encodings&#8221;</a> for the
+            basics.</p><p> In previous versions of jEdit, there was very little encoding autodetection, so <span class="guilabel"><strong>use autodetection when possible</strong></span> is an option you can switch on or off.
+            </p><p>The <code class="literal">List of Encoding Autodetector Names</code> is
+            an experimental feature that allows for jEdit and plugins to offer
+            additional encoding autodetector routines. At the moment, there are
+            two techniques known by jEdit: the <code class="literal">BOM</code> (Byte
+            Order Mark), and the <code class="literal">XML-PI</code> (XML processing
+            instruction) techniques. Others can be defined as services and added
+            to this space-separated list. See <a class="ulink" href="../api/org/gjt/sp/jedit/io/EncodingDetector.html" target="_top">EncodingDetector</a>
+            for details on how to offer this service. The order they appear in this
+            list determines the order of detectors that are tried on each file. </p><p>The <code class="literal">List of Fallback Encodings</code> is used when
+            a file fails to open in the default encoding, and the Encoding
+            Autodetectors also fail. The list order here determines the order of
+            encodings that are tried. Each is separated by a space. This is
+            especially handy when doing directory searches through files of
+            different encodings. We suggest using <code class="literal">UTF-8</code> as
+            either your default or one of the fallback encodings.</p><p>While jEdit allows you to edit files in a variety of different
+            encodings, the average user switches between only 2 or 3. In other
+            parts of jEdit, where the list of encodings is displayed in a
+            combobox (such as the buffer options) or a menu (such as
+            <span class="guimenuitem"><strong>File - Reload with Encoding</strong></span> submenu) it
+            may be desirable to display only a subset of available encodings,
+            those that are in common local use. The Encodings checkbox list
+            allows the user to select the subset of supported encodings to
+            display in other GUI components that list all of the
+            encodings.</p></div><div class="section" title="The Gutter Pane"><div class="titlepage"><div><div><h3 class="title"><a name="gutter-pane"></a>The Gutter Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Gutter</strong></span> option pane contains
+            settings to customize the appearance of the gutter. Some new options were added
+            to jEdit 4.3, including "show gutter", "minimal number of digits to reserve for line numbers",
+            and "fold style".  See <a class="xref" href="overview.html" title="Interface Overview">the section called &#8220;Interface Overview&#8221;</a>.</p></div><div class="section" title="The Mouse Pane"><div class="titlepage"><div><div><h3 class="title"><a name="mouse-pane"></a>The Mouse Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Mouse</strong></span> option pane contains settings
+            for toggling drag and drop of text, as well as gutter mouse click
+            behavior.</p><p> The only option that may not be self-explanatory is the  <span class="bold"><strong>Double-Click drag joins non-alphanumeric characters</strong></span>. This option means that double-click will select a region that includes the non-alphabetical characters, as defined for the current mode. The actual set of characters can be defined for an indiviual file via buffer-local properties (<code class="literal">noWordSep</code>) or on a mode-wide basis from the Editing option pane (<code class="literal">Extra Word Characters</code>).  </p></div><div class="section" title="The Printing Pane"><div class="titlepage"><div><div><h3 class="title"><a name="printing-pane"></a>The Printing Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Printing</strong></span> option pane contains
+            settings to control the appearance of printed output. Workarounds
+            that might be needed for your Java version to print correctly can
+            also be enabled here. See <a class="xref" href="printing.html" title="Printing">the section called &#8220;Printing&#8221;</a>.</p></div><div class="section" title="The Plugin Manager Pane"><div class="titlepage"><div><div><h3 class="title"><a name="pluginmgr-pane"></a>The Plugin Manager Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Plugin Manager</strong></span> pane contains a
+            chooser for the desired download mirror, as well as various settings
+            such as the directory where plugins are to be installed. In addition, you can set the time in minutes that the pluginlist can be cached from jedit.org, helping to reduce the server load. See <a class="xref" href="using-plugins.html" title="Chapter 9. Installing and Using Plugins">Chapter 9, <i>Installing and Using Plugins</i></a>.</p></div><div class="section" title="The Proxy Servers Pane"><div class="titlepage"><div><div><h3 class="title"><a name="firewall-pane"></a>The Proxy Servers Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Proxy Servers</strong></span> option pane lets you
+            specify HTTP and SOCKS proxy servers to use when jEdit makes network
+            connections, for example when downloading plugins.</p></div><div class="section" title="The Shortcuts Pane"><div class="titlepage"><div><div><h3 class="title"><a name="shortcuts-pane"></a>The Shortcuts Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Shortcuts</strong></span> option pane associates
+            keyboard shortcuts with commands. Each command can have up to two
+            shortcuts associated with it.</p><p>The combo box at the top of the option pane selects the
+            command set to edit. Command sets include the set of all built-in
+            commands, the commands of each plugin, and the set of macros.</p><p>To change a shortcut, click the appropriate table entry and
+            press the keys you want associated with that command in the
+            resulting dialog box. The dialog box will warn you if the shortcut
+            is already assigned.</p><h4><a name="id491765"></a> 2-key shortcut prefixes </h4><p> Some shortcuts, such as C+e, C+m, and C+r, are prefixes for two-keystroke shortcuts. Another  keystroke may be used as a prefix in a 2-key shortcut, so for example, C+x can be redefined as a prefix to make it more emacs-like, by mapping any other action to a C+x prefixed shortcut.</p><p> Conversely, emacs users will notice at first that C+e can not be mapped as a single key shortcut to go to the end of the line, unless all of the other actions that contain C+e prefixed shortcuts are remapped to other shortcuts first. After that, C+e can be bound to end-of-line. </p><p> The default shortcuts can be found in  <code class="literal">jedit_keys.props</code>. </p></div><div class="section" title="The Status Bar Pane"><div class="titlepage"><div><div><h3 class="title"><a name="status-bar-pane"></a>The Status Bar Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Status Bar</strong></span> option pane contains
+            settings to customize the status bar, or disable it completely. See
+            <a class="xref" href="status-bar.html" title="The Status Bar">the section called &#8220;The Status Bar&#8221;</a>.</p></div><div class="section" title="The Syntax Highlighting Pane"><div class="titlepage"><div><div><h3 class="title"><a name="syntax-hilite-pane"></a>The Syntax Highlighting Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Syntax Highlighting</strong></span> pane can be
+            used to customize the fonts and colors for syntax highlighting. See
+            <a class="xref" href="modes.html#syntax-hilite" title="Syntax Highlighting">the section called &#8220;Syntax Highlighting&#8221;</a>.</p></div><div class="section" title="The Text Area Pane"><div class="titlepage"><div><div><h3 class="title"><a name="text-area-pane"></a>The Text Area Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Text Area</strong></span> pane contains settings to
+            customize the appearance of the text area. See <a class="xref" href="overview.html" title="Interface Overview">the section called &#8220;Interface Overview&#8221;</a>.</p></div><div class="section" title="The Tool Bar Pane"><div class="titlepage"><div><div><h3 class="title"><a name="toolbar-pane"></a>The Tool Bar Pane</h3></div></div></div><p>The <span class="guibutton"><strong>Tool Bar</strong></span> option pane lets you edit
+            the tool bar, or disable it completely. See <a class="xref" href="views.html" title="Multiple Views">the section called &#8220;Multiple Views&#8221;</a>.</p></div><div class="section" title="The View Pane"><div class="titlepage"><div><div><h3 class="title"><a name="view-pane"></a>The View Pane</h3></div></div></div><p>The <span class="guibutton"><strong>View</strong></span> option pane lets you change
+            various settings related to the editor window's appearance,
+            including the arrangement of dockable windows, and if the search bar
+            and buffer switcher should be visible. See <a class="xref" href="views.html" title="Multiple Views">the section called &#8220;Multiple Views&#8221;</a>.</p></div><div class="section" title="The File System Browser Panes"><div class="titlepage"><div><div><h3 class="title"><a name="vfs-browser-pane"></a>The File System Browser Panes</h3></div></div></div><p>The <span class="guibutton"><strong>File System Browser</strong></span> group contains
+            two option panes, <span class="guibutton"><strong>General</strong></span> and
+            <span class="guibutton"><strong>Colors</strong></span>. The former contains various file
+            system browser settings. The latter configures glob patterns used
+            for coloring the file list. See <a class="xref" href="vfs-browser.html" title="The File System Browser (FSB)">the section called &#8220;The File System Browser (FSB)&#8221;</a> for
+            more information.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="buffer-local.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="customizing.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="settings-directory.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Buffer-Local Properties </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The jEdit Settings Directory</td></tr></table></div></body></html>

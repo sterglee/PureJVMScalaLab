@@ -1,0 +1,25 @@
+
+
+You can use some useful ScalaLab functionality (e.g. plotting)
+from the Java9's JShell scripting engine.
+
+
+In order to do that:
+
+1. Start the JShell with
+
+jshell --class-path ScalaLab.jar
+
+2. Open the script with some appropriate import statements, makeImportsJShell.jshell
+from with JShell, i.e.
+
+
+/open  makeImportsJShell.jshell
+
+3. Then use ScalaLab's functionality from Java 9, e.g.
+
+ Vec v = vrand(60000);
+ plot(v);
+ 
+ 
+ 

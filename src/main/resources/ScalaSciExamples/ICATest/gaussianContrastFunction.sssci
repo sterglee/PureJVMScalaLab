@@ -1,0 +1,20 @@
+
+// uses ICA Scalalab toolbox
+
+ var gf = new org.fastica.GaussCFunction(9.8)
+
+ var N = 1000 // number of points
+ var y = new Array[Double](N)
+ 
+var xlow = -4.0
+var xup = 4.0
+var xstep = (xup-xlow)/N
+
+var xc = xlow
+for (k<-0 to N-1) {
+  y(k) = gf.function(xc)
+  xc += xstep
+  }
+
+plot(y); title(" Gaussian Contrast Function")
+

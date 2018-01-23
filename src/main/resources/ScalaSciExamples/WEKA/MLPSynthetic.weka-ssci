@@ -1,0 +1,50 @@
+// this script  requires  WEKA toolbox to be first loaded
+import weka.classifiers.functions._
+import weka.classifiers.Classifier
+import weka.core._
+import java.io._
+import weka.core.converters.ConverterUtils._
+
+var num1 = new Attribute("num1")
+var num2 = new Attribute("num2")
+var labels = new FastVector
+labels.addElement("yes")
+labels.addElement("no")
+var cls = new Attribute("class", labels)
+var attributes = new FastVector
+attributes.addElement(num1)
+attributes.addElement(num2)
+attributes.addElement(cls)
+var dataset = new Instances("Test-dataset", attributes, 0)
+
+// construct instances of the first class
+var Ninst = 100
+var xcl1Inst = new Array[Double](Ninst)
+var xcl2Inst = new Array[Double](Ninst)
+var ycl1Inst = new Array[Double](Ninst)
+var ycl2Inst = new Array[Double](Ninst)
+
+var (x1, y1, x2, y2) = (0.0, 0.0, 0.0, 0.0)
+var cl1Ar = new Array[Double](3)
+var cl2Ar = new Array[Double](3)
+
+for (k<-0 until Ninst) {
+  x1 = Math.random
+  xcl1Inst(k) = x1
+  y1 = Math.random
+  ycl1Inst(k) = y1
+  
+  x2 = Math.random
+  xcl2Inst(k) = x2
+  y2 = 5*x2
+  ycl2Inst(k) = y2
+
+  cl1Ar(0) = x1;  cl1Ar(1) = y1; cl1Ar(2) = 0
+  cl2Ar(0) = x2;  cl2Ar(1) = y2; cl2Ar(2) = 1
+  
+}
+
+figure(1); scatterPlotsOn; plot(xcl1Inst, ycl1Inst); title("random data")
+figure(2); scatterPlotsOn; plot(xcl2Inst, ycl2Inst); title("related data")
+
+

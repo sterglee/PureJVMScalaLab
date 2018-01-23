@@ -1,0 +1,36 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter 2. Starting jEdit</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="jEdit 4.3 User's Guide"><link rel="up" href="using-jedit-part.html" title="Part I. Using jEdit"><link rel="prev" href="conventions.html" title="Chapter 1. Conventions"><link rel="next" href="cli-usage.html" title="Command Line Usage"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 2. Starting jEdit</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conventions.html">Prev</a> </td><th width="60%" align="center">Part I. Using jEdit</th><td width="20%" align="right"> <a accesskey="n" href="cli-usage.html">Next</a></td></tr></table><hr></div><div class="chapter" title="Chapter 2. Starting jEdit"><div class="titlepage"><div><div><h2 class="title"><a name="starting"></a>Chapter 2. Starting jEdit</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><ul><li><span class="section"><a href="cli-usage.html">Command Line Usage</a></span><ul><li><span class="section"><a href="cli-usage.html#id416602">Miscellaneous Options</a></span></li><li><span class="section"><a href="cli-usage.html#id401289">Configuration Options</a></span></li><li><span class="section"><a href="cli-usage.html#id450044">Edit Server Options</a></span></li></ul></li></ul></div><p>Exactly how jEdit is started depends on the operating system. For
+    example, on Unix you can run <span class="quote">&#8220;<span class="quote">jedit</span>&#8221;</span> at the command line, or
+    select jEdit from a menu; on Windows, you can double-click on the jEdit icon
+    or select it from the <span class="guimenu"><strong>Start</strong></span> menu. </p><p>If jEdit is started while another copy is already running, control is
+    transferred to the running copy, and a second instance is not loaded. This
+    saves time and memory if jEdit is started multiple times. Communication
+    between instances of jEdit is implemented using TCP/IP sockets; the initial
+    instance is known as the <em class="firstterm">server</em>, and subsequent
+    invocations are <em class="firstterm">clients</em>.</p><p>If you find yourself launching and exiting jEdit a lot, the startup
+    time can get a bit bothersome. If the <strong class="userinput"><code>-background</code></strong>
+    command line switch is specified, jEdit will continue running and waiting
+    for client requests even after all editor windows are closed. When run in
+    background mode, you can open and close jEdit any number of times, only
+    having to wait for it to start the first time. The downside of this is
+    increased memory usage.</p><p>When running on MacOS X, the <strong class="userinput"><code>-background</code></strong>
+    command-line switch is active by default, so that jEdit conforms to the
+    platform convention that programs should stay open until the
+    <span class="guimenuitem"><strong>Quit</strong></span> command is explicitly invoked by the user,
+    even if all windows are closed. To disable background mode on MacOS X, use
+    the <strong class="userinput"><code>-nobackground</code></strong> switch.</p><p>For more information about command line switches that control the
+    server feature, see <a class="xref" href="cli-usage.html" title="Command Line Usage">the section called &#8220;Command Line Usage&#8221;</a>. </p><p>jEdit remembers open buffers, views and split window configurations
+    between editing sessions, so you can get back to work immediately after
+    starting jEdit. This feature can be disabled in the
+    <span class="guibutton"><strong>General</strong></span> pane of the
+    <span class="guimenu"><strong>Utilities</strong></span>&gt;<span class="guimenuitem"><strong>Global Options</strong></span>
+    dialog box see <a class="xref" href="global-opts.html#general-pane" title="The General Pane">the section called &#8220;The General Pane&#8221;</a>.</p><div class="sidebar" title="The edit server and security"><p class="title"><b>The edit server and security</b></p><p>Since Java does not provide any interprocess communication
+        facility other than TCP/IP, jEdit takes extra precautions to prevent
+        remote attacks.</p><p>Not only does the edit server pick a random TCP port number on
+        startup, it also requires that clients provide an
+        <em class="firstterm">authorization key</em>; a randomly-generated number
+        only accessible to processes running on the local machine. So not only
+        will <span class="quote">&#8220;<span class="quote">bad guys</span>&#8221;</span> have to guess a 64-bit integer, they will
+        need to get it right on the first try; the edit server shuts itself off
+        upon receiving an invalid packet.</p><p>In environments that demand absolute security, the edit server can
+        be disabled by specifying the <strong class="userinput"><code>-noserver</code></strong> command
+        line switch.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conventions.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="using-jedit-part.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="cli-usage.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 1. Conventions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Command Line Usage</td></tr></table></div></body></html>

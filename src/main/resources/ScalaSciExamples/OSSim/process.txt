@@ -1,0 +1,53 @@
+
+import edu.upc.fib.ossim.process.model.Process
+import java.util.Vector
+
+import edu.upc.fib.ossim.process.model.ContextProcess
+import edu.upc.fib.ossim.process.model.ProcessStrategyFCFS
+import edu.upc.fib.ossim.process.model.ProcessStrategyPrio
+import edu.upc.fib.ossim.process.model.ProcessStrategyRR
+import edu.upc.fib.ossim.process.model.ProcessStrategySJF
+
+ // prepare the parameters for constructing a process
+var pid = 1      //      process identifier
+var pname = "Pr1"  //  process name     
+var prio = 4  // process priority
+var timesubmission = 0  // process initial time. (entering ready queue)
+var periodic = false  // true means endless process that repeats burst cycle indefinitely, otherwise    only once
+var burstsCycle = new Vector[Integer](3)  //  process bursts vector. CPU or I/O bursts, values 0 or 1  
+burstsCycle.insertElementAt(1, 0)  // CPU burst
+burstsCycle.insertElementAt(1, 1) // IO burst
+burstsCycle.insertElementAt(1, 2)   // CPU burst
+var color = Color.RED
+
+ 
+ var context = new ContextProcess(new ProcessStrategyFCFS())
+ 
+ var numProcess = 10
+ for (pr<-0 until numProcess-1) {
+   var cp = new Process(pid, pname+pr, prio, timesubmission, periodic, burstsCycle, color)
+   context.addProcess(cp, 0)
+   }
+   
+   
+    /**
+     * Forwards simulation time 1 unit. Common tasks such as initial (time 0) state back up, increment all processes 
+     * waiting time in the ready queue, look at arriving queue to move processes to the ready queue and 
+     * move finished processes to the finished queue are implemented here, algorithm concrete tasks such as 
+     * execute running process 1 time unit are implemented into concrete strategies.  Returns true when simulation ends 
+     * (no more processes in any queue)
+     * 
+     * @param time			current simulation time
+     * @param multiprogram  scheduling is multiprogramming 
+     * @param preemptive	scheduling is preemptive
+     * @param quantum		scheduling quantum size
+     * 
+     * @return simulation ends 
+     * 
+     * @see ProcessStrategy
+     */
+     var time = 1000; var multiprogram = true; var preemptive = true; var quantum = 1
+     
+     context.forwardTime(time,  multiprogram,  preemptive,  quantum) 
+     
+     context.getProcessCount

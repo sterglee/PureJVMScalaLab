@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>scalaSci</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Solaris x86)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20090409;15003000">
+	<META NAME="Info 1" CONTENT="">
+	<META NAME="Info 2" CONTENT="">
+	<META NAME="Info 3" CONTENT="">
+	<META NAME="Info 4" CONTENT="">
+	<META NAME="CHANGEDBY" CONTENT="Stergios Papadimitriou">
+	<META NAME="CHANGEDBY" CONTENT="Stergios Papadimitriou">
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P><BR><BR>
+</P>
+<P><FONT SIZE=4 STYLE="font-size: 16pt"><B>ODE Examples</B></FONT></P>
+<TABLE WIDTH=669 BORDER=1 BORDERCOLOR="#000000" CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=380>
+	<COL WIDTH=271>
+	<TR VALIGN=TOP>
+		<TD WIDTH=380>
+			<P><B>Double Scroll Attractor </B>
+			</P>
+		</TD>
+		<TD WIDTH=271>
+			<P><A HREF="DoubleScrollDiffSys.ssci">DoubleScrollDiffSys.ssci</A></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=380>
+			<P><B>Multistep Example</B></P>
+		</TD>
+		<TD WIDTH=271>
+			<P><A HREF="exampleMultistep.ssci">exampleMultistep.ssci</A></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=380>
+			<P><B>Lorenz Runge-Kutta</B></P>
+		</TD>
+		<TD WIDTH=271>
+			<P><A HREF="Lorenz2RKEJava.ssci">Lorenz2RKEJava.ssci</A></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=380>
+			<P><B>Lorenz Multistep</B></P>
+		</TD>
+		<TD WIDTH=271>
+			<P><A HREF="LorenzMultiStep.ssci">LorenzMultiStep.ssci</A></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=380>
+			<P STYLE="font-style: normal"><B>MultiStep </B>
+			</P>
+		</TD>
+		<TD WIDTH=271>
+			<P><A HREF="multistep.ssci">multistep.ssci</A></P>
+		</TD>
+	</TR>
+	<TR VALIGN=TOP>
+		<TD WIDTH=380>
+			<P STYLE="margin-bottom: 0in"><B>First order – No derivatives
+			right hand side</B></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal">rk1:
+			solves an initial value problem for a single first order ordinary
+			differential equation <I>dy/dx = f(x,y) </I><SPAN STYLE="font-style: normal">by
+			means of a 5-th order Runge-Kutta method. The equation is assumed
+			to be nonstiff </SPAN>
+			</P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			<I>void  rk1(x, a, b, y, ya, method, e, d, fi)</I></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"><SPAN STYLE="font-style: normal">x:
+			 double  x[0:0];</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			   <SPAN STYLE="font-style: normal">entry: the independent
+			variable;</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			   <SPAN STYLE="font-style: normal">exit: upon completion of a
+			call, </SPAN><I>x </I><SPAN STYLE="font-style: normal">is equal to
+			</SPAN><I>b</I></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"><I>a,b:
+			</I><SPAN STYLE="font-style: normal">initial and end values of </SPAN><I>x</I></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal">
+			<I>y: </I><SPAN STYLE="font-style: normal">double y[0:0];</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			   <SPAN STYLE="font-style: normal">entry: the dependent variable;</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"><I>ya:</I><SPAN STYLE="font-style: normal">
+			double;</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			   <SPAN STYLE="font-style: normal">entry: the value of </SPAN><I>y
+			</I><SPAN STYLE="font-style: normal">at </SPAN><I>x=a;</I></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"><I>method:
+			</I><SPAN STYLE="font-style: normal">a class that defines a
+			procedure </SPAN><I>fxy, </I><SPAN STYLE="font-style: normal">this
+			class must implement the </SPAN><I>AP_rk1_method</I><SPAN STYLE="font-style: normal">
+			interface;</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			 <I>double fxy(double []x, double []y)</I></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-style: normal; font-weight: normal">
+			    the function giving the value of <I>dy/dx</I></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-style: normal; font-weight: normal">
+			<I>e</I>:   double  <I>e[1:2];</I></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-style: normal; font-weight: normal">
+			      entry:<I>  e[1]: </I>a relative tolerance;</P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-style: normal; font-weight: normal">
+			                 <I>e[2]: </I>an absolute tolerance</P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"><I>d:
+			 </I><SPAN STYLE="font-style: normal">double d[1:4];</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			    <SPAN STYLE="font-style: normal">exit:  d[1]: number of steps
+			skipped;</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			             <SPAN STYLE="font-style: normal">d[2]: equals the
+			step length;</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			             <SPAN STYLE="font-style: normal">d[3]: equals b;</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			             <SPAN STYLE="font-style: normal">d[4]: equals y(b);</SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"><I>fi:</I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">
+			boolean;</SPAN></SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"><SPAN STYLE="text-decoration: none">
+			    <SPAN STYLE="font-style: normal">entry:  if </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">fi
+			</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">
+			is true then </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">rk1
+			</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">integrates
+			from </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">x=a </SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">to
+			</SPAN></SPAN><I><SPAN STYLE="text-decoration: none">x=b</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">
+			with initial value </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">y(a)=ya
+			</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">and
+			trial step b-a;</SPAN></SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"><SPAN STYLE="text-decoration: none">
+			                 <SPAN STYLE="font-style: normal">if </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">fi
+			</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">is
+			false then </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">rk1
+			</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">integrates
+			from </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">x=d[3]
+			</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">to
+			</SPAN></SPAN><I><SPAN STYLE="text-decoration: none">x=b</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">
+			with initial value </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">y(d[3])=d[4]
+			</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">and
+			step length </SPAN></SPAN><I><SPAN STYLE="text-decoration: none">h=d[2]sign(b-d[3]),
+			</SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">while
+			</SPAN></SPAN><I><SPAN STYLE="text-decoration: none">a </SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">and
+			</SPAN></SPAN><I><SPAN STYLE="text-decoration: none">ya </SPAN></I><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none">are
+			ignored</SPAN></SPAN></P>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in; font-weight: normal"> 
+			</P>
+			<P ALIGN=JUSTIFY STYLE="font-weight: normal">    
+			</P>
+		</TD>
+		<TD WIDTH=271>
+			<P ALIGN=JUSTIFY STYLE="margin-bottom: 0in">Compute the solution 
+			at <I>x=1 </I><SPAN STYLE="font-style: normal">of the differential
+			equation</SPAN></P>
+			<P ALIGN=CENTER STYLE="margin-bottom: 0in">    
+			<IMG SRC="ODE_htm_66b1431c.gif" NAME="Object1" ALIGN=ABSMIDDLE HSPACE=8 WIDTH=81 HEIGHT=18></P>
+			<P ALIGN=LEFT><SPAN STYLE="font-style: normal">with initial
+			condition 
+			<IMG SRC="ODE_htm_m7e213ea8.gif" NAME="Object2" ALIGN=ABSMIDDLE HSPACE=8 WIDTH=60 HEIGHT=18></SPAN></P>
+		</TD>
+	</TR>
+</TABLE>
+<P><BR><BR>
+</P>
+<P><BR><BR>
+</P>
+</BODY>
+</HTML>

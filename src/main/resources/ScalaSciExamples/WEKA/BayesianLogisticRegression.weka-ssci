@@ -1,0 +1,67 @@
+
+
+
+// this script  requires  WEKA toolbox to be first installed
+import weka.classifiers.functions._
+import weka.classifiers.bayes._
+import weka.core._
+import java.io._
+import weka.core.converters.ConverterUtils._
+
+
+var BayesLogisticRegression = new BayesianLogisticRegression
+
+//var dataFile = getFile("Please specify your data with numeric data for the BayesLogisticRegressionwork")   // get the datafile from the user
+var dataFile = "L:\\data\\UCI\\sonar.arff"
+//var dataFile = "/home/sp/data/UCI/sonar.arff"
+   //  read the datafile
+var allData = DataSource.read(dataFile)
+allData.setClassIndex(allData.numAttributes()-1)
+
+
+
+// construct the training set and testing sets
+var trainSet = new Instances(allData, 0)  // create an initial empty training set
+var testSet = new Instances(allData, 0)    // create an initial empty testing set
+
+var UseInTrain = true  // controls whether to add the Instance at the training set or at the testing set
+var enumInstances = allData.enumerateInstances()
+while  (enumInstances.hasMoreElements) {
+ var currInstance  = enumInstances.nextElement.asInstanceOf[Instance]
+ if (UseInTrain)
+    trainSet.add(currInstance)
+ else
+   testSet.add(currInstance)
+ UseInTrain = !UseInTrain
+}
+
+BayesLogisticRegression.buildClassifier(trainSet)   // build an Bayesian Logistic Regression classifier on the training set
+// test the classifier on the testing set
+// extract the class labels
+var enumTestInstances = testSet.enumerateInstances()  
+var numTestingInstances = testSet.numInstances()
+var classLabels = new Array[Double](numTestingInstances)
+var predictedLabels  = new Array[Double](numTestingInstances)
+
+
+var cnt=0
+var classIdx = testSet.classIndex   // get class index
+var successCnt=0
+while (enumTestInstances.hasMoreElements) {   // for all the elements of the testing set
+   var currInstance = enumTestInstances.nextElement.asInstanceOf[Instance]
+   var distForInstance = BayesLogisticRegression.distributionForInstance(currInstance)
+   var classOfInstance =  currInstance.toDoubleArray.apply(classIdx)
+   classLabels(cnt) = classOfInstance
+   predictedLabels(cnt) = distForInstance(0)
+      cnt += 1
+ if (abs(classOfInstance-predictedLabels(cnt)) < 0.01) successCnt+=1
+
+}
+   
+figure(1)
+linePlotsOn
+hold("on")
+plot(predictedLabels, Color.RED, "predicted");
+plot(classLabels, Color.BLUE, "actual class"); title("Bayesian Logistic Network prediction")
+
+

@@ -1,0 +1,17 @@
+
+import dk.ange.octave.OctaveEngine;
+import dk.ange.octave.OctaveEngineFactory;
+import dk.ange.octave.`type`.
+
+
+ 
+var  octave = new OctaveEngineFactory().getScriptEngine()
+
+var str = "N=4000; x=rand(N,N); y=x*x; "
+
+tic
+octave.eval(str)
+var tm=toc
+
+ var X =  octave.get("y")
+ 

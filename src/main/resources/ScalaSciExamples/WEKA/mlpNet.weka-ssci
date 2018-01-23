@@ -1,0 +1,49 @@
+
+// requires WEKA toolbox to be installed
+// trains a WEKA Multilayer Perceptron on the data of an .arff file
+
+var dataFile = getFile("Please specify your data file")
+var data = scalaSci.BasicCommands.readARFFFile(dataFile)   // read the .arff file as a scalaSci Matrix
+var  N = data.N   //  number of myInstances
+var  M = data.M   //  number of attributes (i.e. dimensionality)
+//  use half of the data for training and half for testing
+var  trainData = data(0, 2, N-1, ::)  // extract rows from 1, up to N, step 2, i.e. data(0:2:N-1, :)
+var  testData = data(1, 2, N-1, ::) // i.e. data(1:2:N-1, :)
+
+var ClassIdx = M-1
+var TestingClassLabel = data(::, ClassIdx, 1, ClassIdx);   // i.e. data(:, ClassIdx)
+
+var learningRate = getDouble("Enter learning rate", 0.1)
+var momentum = getDouble("Enter momentum", 0.01)
+
+var mlpNet =  new weka.classifiers.functions.MultilayerPerceptron()
+mlpNet.setLearningRate(learningRate)
+mlpNet.setMomentum(momentum)
+
+
+   var rinsts = new java.io.FileReader(dataFile)
+     var  myInstances = new weka.core.Instances(rinsts)   // construct WEKA Instances structure from the double[][] representation of ScalaSci's Mat  structure
+      myInstances.setClassIndex(ClassIdx-1)
+      mlpNet.buildClassifier(myInstances)   // build the classifier
+
+      var netResults = new Array[Double](N)
+      var  instEnum = myInstances.enumerateInstances()
+      var ctp = 0   // current testing pattern
+      while (instEnum.hasMoreElements()) {
+          var currentInstance =  instEnum.nextElement().asInstanceOf[weka.core.Instance]
+          var classification = mlpNet.classifyInstance(currentInstance)
+          netResults(ctp) = classification
+          ctp+=1
+       }
+
+ figure(1)
+ plot(netResults, Color.RED)
+ 
+var Ns = TestingClassLabel.N
+var labels = new Array[Double](Ns)
+for (k<-0 to Ns-1)
+  labels(k) = TestingClassLabel.v(k)(0)
+
+ hold("on")
+ plot( labels, Color.BLUE)
+

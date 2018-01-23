@@ -1,0 +1,45 @@
+// command to use ScalaLab from Scala REPL:
+// scala -classpath ScalaLab.jar:./lib/MTJColtSGTJCUDA.jar 
+// then load the imports from the Scala REPL with: 
+// :load makeImportsScalaREPL.scalarepl
+// and you can exploit ScalaLab features as e.g.
+//  plot(vrand(9000))
+
+
+import java.awt._ 
+import java.awt.event._ 
+import java.lang.Math._
+import javax.swing._
+import javax.swing.event._ 
+import java.util.Vector
+
+
+import scalaSci.math.io.MatIO._
+import scalaSci.math.plot._
+import scalaSci.math.plot.canvas._
+import scalaSci.math.plot.render._ 
+
+import  scalaSci.math.plot.plotTypes._
+import scalaSci.Vec  
+import  scalaSci.Vec._  
+
+import _root_.scalaSci.Mat
+            import _root_.scalaSci.Mat._
+            import _root_.scalaSci.StaticMaths._ 
+                
+
+            import scalaSci.Matrix._  
+            import scalaSci.Sparse 
+            import scalaSci.Sparse._  
+            import scalaSci.CCMatrix  
+            import scalaSci.CCMatrix._  
+            import java.util.Random 
+
+            import scalaSci.RichNumber 
+            import scalaSci.RichDouble2DArray 
+            import scalaSci.RichDouble2DArray._ 
+            import scalaSci.RichDouble1DArray  
+            import scalaSci.RichDouble1DArray._  
+            
+      
+

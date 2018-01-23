@@ -1,0 +1,8 @@
+var ab = rand0b(1000)
+
+var a = rand0(1000)
+
+tic; var b = a*a; var tm = toc
+
+tic; var bb = ab*ab; var tmb = toc
+

@@ -1,0 +1,16 @@
+var N=2^^^22
+var data = vrand(N)+0.2*sin( 145.3* linspace(0, 1, N))
+plot(data)
+
+tic
+var (reNative, imNative) = scalaSci.FFT.FFTScala.nfft(data)
+var tmNative = toc
+
+    
+tic
+var (reJava, imJava) = scalaSci.FFT.FFTScala.fft(data)
+var tmJava=toc
+
+
+figure(1); subplot(2,1,1); plot( reJava(0,200), "Java FFT, time = "+tmJava)
+subplot(2,1,2); plot( reNative(0,200), "Native FFT, time = "+tmNative)

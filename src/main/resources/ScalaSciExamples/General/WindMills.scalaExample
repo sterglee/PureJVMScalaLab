@@ -1,0 +1,204 @@
+
+
+import java.awt._
+import java.awt.event._
+import javax.swing._
+import java.awt.geom._
+
+   // For animation, increases by 1 in each frame.
+  var frameNumber = 0
+   
+  var pixelSize = 0.0F 
+   // Desired coordinate limits.
+   var limitsRequested = Array(0.0, 7, 4, 0)
+
+   /**
+    * =====================================================================
+    * Constructor sets the preferred size of the panel to 700-by-500,
+    * adds a gray border, and starts a timer that will drive the animation.
+    * =====================================================================
+    */
+class windMills extends JPanel  {
+   setPreferredSize( new Dimension(700, 500))
+   setBackground( Color.LIGHT_GRAY)
+   setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2))
+
+
+      // Create windmill vane pathway ....
+      var windmillVane = new GeneralPath()
+      windmillVane.moveTo(0, 0)
+      windmillVane.lineTo(0.5F, 0.1F)
+      windmillVane.lineTo(1.5F, 0)
+      windmillVane.lineTo(0.5F, -0.1F)
+      windmillVane.closePath()
+
+      // Create timer and run animation ....
+
+      new Timer(30, new ActionListener() {
+         def actionPerformed(evt: ActionEvent ) = {
+            frameNumber += 1
+            repaint()
+         }
+      }).start()
+   
+   
+   /**
+    * Draw the current frame of the animation.
+    */
+   override def paintComponent(g: Graphics ) = {
+      super.paintComponent(g)
+      var g2 = g.create().asInstanceOf[Graphics2D]
+      g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON)
+      
+      // =====================================================================
+      // Apply coordinates with x ranging from 0 on the left to 7 on the right
+      // and y ranging from 0 at the bottom to 4 at the top.
+      // Note that the aspect ratio  is NOT preserved, so the aspect ratio
+      // of the panel should closely match the aspect ratio of the
+      // coordinate rectangle.
+      // =====================================================================
+
+      applyLimits(g2, getWidth(), getHeight(), limitsRequested, false)
+      
+      // ========================================
+      // Draw the sky, ground, and road directly.
+      // ========================================
+
+      // Fill the sky, behind the hills
+
+      g2.setColor( new Color(150,150,255) )
+      g2.fillRect(0,0,7,4)
+      
+      /*
+       *  =================================================================
+       *  Keep a copy of the current transform, so that it can be restored
+       *  after drawing each object.
+       *  =================================================================
+       */
+      
+      var  saveTr = g2.getTransform()
+      
+      
+      // ========================================
+      // Draw three windmills. 
+      // ========================================
+      
+      g2.translate(0.75, 1)
+      g2.scale(0.6, 0.6)
+      drawWindmill(g2)
+      g2.setTransform(saveTr)
+
+      g2.translate(2.2, 1.6)
+      g2.scale(0.4, 0.4)
+      drawWindmill(g2)
+      g2.setTransform(saveTr)
+
+      g2.translate(3.7, 0.1)
+      g2.scale(0.8, 0.8)
+      drawWindmill(g2)
+      g2.setTransform(saveTr)
+      
+   }
+   
+   /**
+    * ==========================================================================
+    * Applies a coordinate transform to a Graphics2D graphics context.
+    * 
+    * The upper left corner of the viewport where the graphics context draws
+    * is assumed to be (0,0).  (This method sets the global variable pixelSize.)
+    * 
+    * @param              g2  The drawing context whose transform will be set.
+    * @param           width  The width of the viewport where g2 draws.
+    * @param          height  The height of the viewport where g2 draws.
+    * @param limitsRequested  Specifies a rectangle that will be
+    *                         visible in the viewport. 
+    * 
+    *  Under the transform, the rectangle with corners
+    *          (limitsRequested[0],limitsRequested[1])
+    *  and 
+    *          (limitsRequested[2],limitsRequested[3])
+    * will just fit in the viewport.
+    * 
+    * @param preserveAspect if preserveAspect is false, then the limitsRequested
+    * rectangle will exactly fill the viewport; if it is true, then the limits
+    * will be expanded in one direction, horizontally or vertically, to make the
+    * aspect ratio of the displayed rectangle match the aspect ratio of the viewport.
+    * 
+    * Note that when preserveAspect is false, the units of measure in the
+    * horizontal and vertical directions will be different.
+    * ==========================================================================
+    */
+
+   def applyLimits( g2: Graphics2D, width: Int, height: Int, limitsRequested: Array[Double], preserveAspect: Boolean) =  {
+
+       var limits = limitsRequested
+
+      if (preserveAspect) {
+         var displayAspect   = Math.abs(height.asInstanceOf[Double] / width)
+         var  requestedAspect = Math.abs(( limits(3) - limits(2) ) / ( limits(1) - limits(0) ))
+
+         if (displayAspect > requestedAspect) {
+            var  excess = (limits(3) - limits(2)) * (displayAspect/requestedAspect - 1)
+            limits = Array( limits(0), limits(1),  limits(2) - excess/2, limits(3) + excess/2)
+         }
+         else if (displayAspect < requestedAspect) {
+            var  excess = (limits(1) - limits(0)) * (requestedAspect/displayAspect - 1)
+            limits = Array ( limits(0) - excess/2,  limits(1) + excess/2, limits(2), limits(3))
+         }
+      }
+
+      var  pixelWidth  = Math.abs(( limits(1) - limits(0) ) / width)
+      var  pixelHeight = Math.abs(( limits(3) - limits(2) ) / height)
+      pixelSize = Math.min(pixelWidth,pixelHeight).asInstanceOf[Float]
+
+      g2.scale( width / (limits(1)-limits(0)), height / (limits(3)-limits(2)) )
+      g2.translate( -limits(0), -limits(2) )
+   }
+
+   /**
+    * ==========================================================================
+    * Draw a windmill, consisting of a pole and three vanes. 
+    *
+    *   -- The pole extends from the point (0,0) to (0,3).
+    *   -- The vanes radiate out from (0,3). 
+    *   -- A rotation that depends on the frame number is applied to the whole
+    *      set of vanes, which causes the windmill to rotate.
+    *
+    * ==========================================================================
+    */
+
+   def drawWindmill(g2: Graphics2D) =  {
+
+      g2.setColor(new Color(200,200,225))
+      g2.fill(new Rectangle2D.Double(-0.05,0,0.1,3))
+
+      // Translations to move the vanes to the top of the pole.
+
+      g2.translate(0, 3)
+
+      // Apply an overall rotation to the set of vanes.
+
+      g2.rotate(frameNumber/23.0)
+      g2.setColor(new Color(100,100,200))
+
+      // Draw wind vanes 60 degrees apart.....
+
+      for (i <- 0 until  6) {
+         g2.rotate(1*Math.PI/3)
+         g2.fill(windmillVane)
+      }
+   }
+
+}
+
+
+var myWindMills = new windMills()
+
+var jf = new JFrame("WindMills")
+
+jf.add(myWindMills)
+
+jf.setSize(800, 800)
+jf.setVisible(true)
+   
+   

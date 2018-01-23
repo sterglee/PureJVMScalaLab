@@ -1,0 +1,60 @@
+
+import  com.nr.test.NRTestUtil.maxel
+import  com.nr.test.NRTestUtil.vecsub
+import  java.lang.Math.acos
+import  java.lang.Math.sin
+
+import com.nr.interp.Spline_interp
+import com.nr.ran.Ran
+
+
+ var N = 20
+    
+    
+ var  x = new Array[Double](N)
+ var  y = new Array[Double](N)
+ var  xx = new Array[Double](N)
+ var  yy = new Array[Double](N)
+ var  zz = new Array[Double](N)
+ 
+    
+
+    // Test Spline_interp
+ println("Testing Spline_interp")
+ var pi = acos(-1.0)
+ for(i <- 0 until N) {
+      x(i) = (i)*pi/(N-1)
+      y(i) = sin(x(i))
+   }
+
+    
+    var yp1 = 1.0
+    var ypn = -1.0
+    var z = new Spline_interp(x, y, yp1, ypn)
+    
+    var  myran = new Ran(17)
+    for(i <- 0 until N) {
+      xx(i) = pi*myran.doub()
+      yy(i) = z.interp(xx(i))
+      zz(i) = sin(xx(i))
+    }
+
+
+var (sXX, sYY) = sorta(xx, yy)  // sorted based on x-index interpolated points 
+var  (sAX, sAY) = sorta(xx, zz)   // sorted based on x-index actual points
+
+figure(1)
+plot(sXX, sYY, Color.GREEN, "Inpterpolated")
+hold (on)
+plot(sAX, sAY, Color.RED, "Actual")
+
+println("     Spline_interp: Max. actual error:    " +maxel(vecsub(zz,yy)))
+
+linePlotsOn
+figure(2); title("Demonstration of Spline interpolation")
+plot(x, y, Color.RED, "Actual")
+scatterPlotsOn
+plotMarks(xx, yy, Color.GREEN, "Spline Interpolated")
+
+
+

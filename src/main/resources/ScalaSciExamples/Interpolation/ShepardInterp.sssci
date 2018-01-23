@@ -1,0 +1,68 @@
+
+import  com.nr.test.NRTestUtil.maxel
+import  com.nr.test.NRTestUtil.vecsub
+import  java.lang.Math.cos
+
+
+import com.nr.interp.Shep_interp
+import com.nr.ran.Ran
+
+
+  val  NPTS = 100
+  val  NDIM = 2
+  val  N = 10
+  val  M = 10
+  
+  var  p = 5.0
+  var  sbeps = 0.05
+  
+  val  pts = Array.ofDim[Double](NPTS, NDIM)
+    
+  val  y = new Array[Double](NPTS)
+  val  actual = new Array[Double](M)
+  val  estim = new Array[Double](M)
+  val  ppt = new Array[Double](2)
+
+    
+  // Test Shep_interp
+ println("Testing Shep_interp")
+ var  myran = new Ran(17)
+    
+    val  pt = Array.ofDim[Double](M, 2)
+    for (i <- 0 until M) {
+      pt(i)(0) = N * myran.doub()
+      pt(i)(1) = N * myran.doub()
+      actual(i) = cos(pt(i)(0) / 20.0 )*cos( pt(i)(1) / 20.0)
+    }
+
+
+
+    var i = 0
+    while  (i < N)
+     {
+     var j = 0
+     while (j < N) {
+        var k = N * i + j
+        pts(k)(0) = j.toDouble
+        pts(k)(1) = i.toDouble
+        y(k) = cos(pts(k)(0)/20.0)*cos(pts(k)(1)/20.0)
+        j += 1
+      }
+      i += 1
+    }
+    
+    var  shep = new Shep_interp(pts, y, p) 
+    for (i <- 0 until M) {
+      ppt(0) = pt(i)(0)
+      ppt(1) = pt(i)(1)
+      estim(i) = shep.interp(ppt)
+    }
+    
+    printf("     Discrepancy: " + maxel(vecsub(actual,estim)))
+
+figure(1); title("GREEN: Actual data, RED: Shepard interpolated")
+plot(pt(::, 0).getv, pt(::, 1).getv, actual, Color.GREEN)
+hold(on)
+plot(pt(::, 0).getv, pt(::, 1).getv, estim, Color.RED)
+
+    

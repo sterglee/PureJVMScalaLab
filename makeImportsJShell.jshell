@@ -1,0 +1,33 @@
+import java.awt.*; 
+import java.awt.event.*; 
+import java.lang.Math.*;
+import javax.swing.*;
+import javax.swing.event.*; 
+import java.util.Vector;
+import numal.*; 
+import static numal.Linear_algebra.*;
+import scalaSci.math.plot.plot.*;
+import static scalaSci.math.plot.plot.*;
+import static scalaSci.math.plot.plotTypes.*;
+import scalaSci.math.io.MatIO.*;
+import scalaSci.math.plot.*;
+import scalaSci.math.plot.canvas.*;
+import scalaSci.math.plot.render.*; 
+import scalaSci.math.plot.*;
+import scalaSci.Vec ; 
+import static scalaSci.Vec.* ; 
+import static scalaSci.StaticMaths.*;
+            import scalaSci.Matrix.* ; 
+            import scalaSci.Sparse; 
+            import scalaSci.Sparse.* ; 
+            import scalaSci.CCMatrix ; 
+            import scalaSci.CCMatrix.* ; 
+            import java.util.Random; 
+
+            import scalaSci.RichNumber; 
+            import scalaSci.RichDouble2DArray; 
+            import scalaSci.RichDouble2DArray.*; 
+            import scalaSci.RichDouble1DArray ; 
+            import scalaSci.RichDouble1DArray.* ; 
+            
+      

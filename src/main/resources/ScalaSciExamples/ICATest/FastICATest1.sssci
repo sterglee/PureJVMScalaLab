@@ -1,0 +1,58 @@
+
+//  this example requires the installation of the fastICA toolbox
+
+//          Creates a FastICA standard configuration:
+
+import org.fastica._ 
+
+var N =3000  // signal size
+var t = linspace(0, 2, N)
+var sig = sin(23.4*t)+1.23*cos(4.663*t)
+
+var  alpha = 3.6
+var sig3 = cos( 1.2*t)
+//var sig4 = (alpha*exp(-alpha*t))/sig3
+var noise = vrand(N)
+var initialSigs  = Array.ofDim[Double](3, N)
+for (k<-0 to N-1) {
+  initialSigs(0)(k) = sig(k)
+  initialSigs(1)(k) = noise(k)
+  initialSigs(2)(k) = sig3(k)
+  
+}
+
+
+var numICs = 3
+  // mixing matrix
+var A = new Mat(3,3); 
+ A(0,0)=2.1; A(0,1)=1.1; A(0,2)=0.3;  
+ A(1,0)=0.1; A(1,1)=0.5; A(1,2)=0.4;
+ A(2,0)=0.12;  A(2,1) = -0.23; A(2,2)=1.2;
+   // apply source mixing matrix to mix signals
+var mixedSignal = A*initialSigs
+var sensorMat = mixedSignal.getv  // get matrix as double[][]
+ var config = new FastICAConfig(numICs,  FastICAConfig.Approach.DEFLATION, 0.01, 1.0e-17, 100000, null)
+	
+	// build the progress listener
+var listener =	new ProgressListener()
+			{
+				def progressMade(state: org.fastica.ProgressListener.ComputationState,  component: Int,  iteration: Int,  maxComps: Int) = 
+				{
+					println( "\r" +  Integer.toString(component) + " - " + Integer.toString(iteration) + "     ");
+				}
+			}
+// perform the independent component analysis
+	println("Performing ICA");
+	
+var  activationFunction = new org.fastica.Power3CFunction()
+var  filter = new org.fastica.CompositeEVFilter()   // the compositeEVFilter can be used to build a chain of eigenvalue filters
+filter.add(new org.fastica.BelowEVFilter(1.0e-12, false)) // The BelowEVFilter filters all eigenvalues, which are lower than a given value. 
+filter.add(new org.fastica.SortingEVFilter(true, true))  // the SortingEVFilter does not really filter some eigenvalues, but sorts them by their related eigenvectors.
+
+var fica = new  FastICA(mixedSignal.getv, config, activationFunction, filter, listener)
+
+var ICAVectors= fica.getICVectors
+figure(1); subplot(3,1,1); plot(sig); subplot(3,1,2); plot(noise); subplot(3,1,3); plot(sig3);  title("Original Signals"); 
+
+figure(2); subplot(3,1,1); plot(ICAVectors(0)); subplot(3,1,2); plot(ICAVectors(1)); subplot(3,1,3); plot(ICAVectors(2));  title("ICA Seperated");  
+

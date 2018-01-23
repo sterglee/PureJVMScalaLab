@@ -1,0 +1,15 @@
+
+
+import scalaSci.jplot.plot._
+import scalaSci.jplot.Figure
+
+var jj = Figure("jj")
+val p = jj.subplot(2, 1, 0)
+var N=2000
+var x = vrand(N)
+val xax = linspace(0, 1,  N)
+p += plot(xax, x)
+
+val p2 = jj.subplot(2,1,1)
+
+p2 += plot(xax.getv, x)

@@ -1,0 +1,21 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Dockable Interface</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="What's New in jEdit 4.3"><link rel="up" href="api-changes.html" title="Chapter 3. API Changes"><link rel="prev" href="api-plugins.html" title="Plugin API changes"><link rel="next" href="new-plugins.html" title="Chapter 4. The core plugins"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Dockable Interface</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="api-plugins.html">Prev</a> </td><th width="60%" align="center">Chapter 3. API Changes</th><td width="20%" align="right"> <a accesskey="n" href="new-plugins.html">Next</a></td></tr></table><hr></div><div class="section" title="Dockable Interface"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dockable-interface"></a>Dockable Interface</h2></div></div></div><p>A new boolean attribute, <code class="literal">MOVABLE</code>, can now
+            be specified for <code class="literal">DOCKABLE</code> tags in the
+            <code class="literal">dockables.xml</code> file. This attribute specifies the
+            behavior when the docking position of the dockable window is
+            changed. If true, the existing instance of the dockable window is
+            moved to the new docking position, thus maintaining its state after
+            the move (this is the new behavior). If false, the BeanShell code is
+            invoked to get the instance to put in the new docking position (this
+            is the existing behavior). The BeanShell code typically returns a
+            new instance of the dockable, cause the state to be lost as a result
+            of the change in docking position. The default value of this
+            attribute is false for backward compatibility.</p><p>A new interface, <a class="ulink" href="../api/org/gjt/sp/jedit/gui/DockableWindow.html" target="_top">DockableWindow</a>,
+            is introduced for <code class="literal">MOVABLE</code> dockable windows to be
+            notified before their docking position is changed. This enables
+            dockable windows to react to this change, e.g. by changing their
+            layout depending on whether they are docked at the top/bottom or the
+            left/right. This interface is meaningless (for now) for non-MOVABLE
+            dockable windows.</p><p>A new Service, <a class="ulink" href="../api/org/gjt/sp/jedit/gui/DockableWindowManagerProvider.html" target="_top">DockableWindowManagerProvier</a>
+            is introduced to permit plugins to offer alternate dockable
+            frameworks, replacing the legacy dockables that are starting to
+            look rather old. </p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="api-plugins.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="api-changes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="new-plugins.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Plugin API changes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4. The core plugins</td></tr></table></div></body></html>

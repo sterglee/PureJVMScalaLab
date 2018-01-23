@@ -1,0 +1,82 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>The Property File</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="jEdit 4.3 User's Guide"><link rel="up" href="plugin-implement.html" title="Chapter 18. Implementing a Simple Plugin"><link rel="prev" href="plugin-implement-quicknotepadplugin.html" title="The QuickNotepadPlugin Class"><link rel="next" href="plugin-implement-editbus.html" title="The EditBus"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">The Property File</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="plugin-implement-quicknotepadplugin.html">Prev</a> </td><th width="60%" align="center">Chapter 18. Implementing a Simple Plugin</th><td width="20%" align="right"> <a accesskey="n" href="plugin-implement-editbus.html">Next</a></td></tr></table><hr></div><div class="section" title="The Property File"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="plugin-implement-properties"></a>The Property File</h2></div></div></div><p>jEdit maintains a list of <span class="quote">&#8220;<span class="quote">properties</span>&#8221;</span>, which are
+        name/value pairs used to store human-readable strings, user settings,
+        and various other forms of meta-data. During startup, jEdit loads the
+        default set of properties, followed by plugin properties stored in
+        plugin JAR files, finally followed by user properties.</p><p>Some properties are used by the plugin API itself. Others are
+        accessed by the plugin using methods in the <a class="ulink" href="../api/org/gjt/sp/jedit/jEdit.html" target="_top">
+        <code class="classname">jEdit</code></a> class. Others are accessed by the
+        scripts used by plugin packagers <sup>[<a name="id537868" href="#ftn.id537868" class="footnote">2</a>]</sup>.</p><p>Property files contained in plugin JARs must end with the filename
+        extension <code class="filename">.props</code>, and have a very simple syntax,
+        which the following example illustrates:</p><div class="informalexample"><pre class="programlisting"># Lines starting with '#' are ignored.
+name=value
+another.name=another value
+long.property=Long property value, split over \
+    several lines
+escape.property=Newlines and tabs can be inserted \
+    using the \t and \n escapes
+backslash.property=A backslash can be inserted by writing \\.</pre></div><p>Now we look at a fragment from the
+        <code class="filename">QuickNotepad.props</code> file <sup>[<a name="id537928" href="#ftn.id537928" class="footnote">3</a>]</sup> which contains properties for the QuickNotepad plugin.
+        The first type of property data is information about the plugin itself;
+        these are the only properties that must be specified in order for the
+        plugin to load:</p><div class="informalexample"><pre class="programlisting"># general plugin information
+plugin.QuickNotepadPlugin.activate=defer
+plugin.QuickNotepadPlugin.name=QuickNotepad
+plugin.QuickNotepadPlugin.author=John Gellene
+plugin.QuickNotepadPlugin.version=4.03
+plugin.QuickNotepadPlugin.docs=QuickNotepad.html
+# depends on jedit 4.2final
+plugin.QuickNotepadPlugin.depend.0=jedit 04.02.99.00
+plugin.QuickNotepadPlugin.description=A demo jEdit plugin that provides a notepad dockable.
+plugin.QuickNotepadPlugin.longdescription=description.html
+</pre></div><p>These properties are each described in detail in the documentation
+        for the <a class="ulink" href="../api/org/gjt/sp/jedit/EditPlugin.html" target="_top">
+        <code class="classname">EditPlugin</code></a> class and do not require
+        further discussion here.</p><p>Next in the file comes a property that sets the title of the
+        plugin's dockable window. Dockable windows are discussed in detail in
+        <a class="xref" href="plugin-implement-dockables.html" title="The dockables.xml Window Catalog">the section called &#8220;The dockables.xml Window Catalog&#8221;</a>.</p><div class="informalexample"><pre class="programlisting"># dockable window name
+quicknotepad.title=QuickNotepad</pre></div><p>Next, we see menu item labels for the plugin's actions. All of
+        these but the first are defined in <code class="literal">actions.xml</code> file,
+        and that is because the dockable itself has its own actions. Actions are
+        discussed further in <a class="xref" href="plugin-implement-actions.html" title="The Actions Catalog">the section called &#8220;The Actions Catalog&#8221;</a>.</p><div class="informalexample"><pre class="programlisting"># action labels
+# Dockable label
+quicknotepad.label=QuickNotepad
+# Additional strings extracted from the plugin java source
+quicknotepad.choose-file.label=Choose notepad file
+quicknotepad.save-file.label=Save notepad file
+quicknotepad.copy-to-buffer.label=Copy notepad to buffer
+</pre></div><p>Next, the plugin's menu is defined. See <a class="xref" href="plugin-implement-quicknotepadplugin.html" title="The QuickNotepadPlugin Class">the section called &#8220;The QuickNotepadPlugin Class&#8221;</a>.</p><div class="informalexample"><pre class="programlisting"># application menu items
+quicknotepad.menu.label=QuickNotepad
+quicknotepad.menu=quicknotepad - quicknotepad.choose-file \
+  quicknotepad.save-file quicknotepad.copy-to-buffer</pre></div><p>We have created a small toolbar as a component of QuickNotepad, so
+        file names for the button icons follow:</p><div class="informalexample"><pre class="programlisting"># plugin toolbar buttons
+quicknotepad.choose-file.icon=Open.png
+quicknotepad.save-file.icon=Save.png
+quicknotepad.copy-to-buffer.icon=Edit.png</pre></div><p>The menu item labels corresponding to these icons will also serve
+        as tooltip text.</p><p>Finally, the properties file set forth the labels and settings
+        used by the option pane:</p><div class="informalexample"><pre class="programlisting"># Option pane labels
+options.quicknotepad.label=QuickNotepad
+options.quicknotepad.file=File:
+options.quicknotepad.choose-file=Choose
+options.quicknotepad.choose-file.title=Choose a notepad file
+options.quicknotepad.choose-font=Font:
+options.quicknotepad.show-filepath.title=Display notepad file path
+
+# Initial default font settings
+options.quicknotepad.show-filepath=true
+options.quicknotepad.font=Monospaced
+options.quicknotepad.fontstyle=0
+options.quicknotepad.fontsize=14
+
+# Setting not defined but supplied for completeness
+options.quicknotepad.filepath=</pre></div><div class="tip" title="PropertySideKick" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">PropertySideKick</h3><p>There is a SideKick for Property files, provided in the
+            JavaSideKick plugin. This gives you a compact and sorted tree view
+            of property files.</p></div><div class="sidebar" title="Updating 4.1 plugins"><p class="title"><b>Updating 4.1 plugins</b></p><p>jEdit 4.2 plugins are distinguished from jEdit 4.1 plugins by
+            the presence of the
+            <code class="literal">plugin.<em class="replaceable"><code>name</code></em>.activate</code>
+            property. If this property is set, the plugin is treated like a
+            jEdit 4.2 plugin. Usually, this property should be set to
+            <code class="literal">defer</code>. See the API documentation for the <a class="ulink" href="../api/org/gjt/sp/jedit/EditPlugin.html" target="_top">
+            <code class="classname">EditPlugin</code></a> class for details. jEdit
+            4.1 plugins which have not been updated to use the 4.2 API will not
+            be supported in jEdit 4.3.</p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id537868" href="#id537868" class="para">2</a>] </sup>See the <span class="guimenuitem"><strong>Macros/Properties/Create Plugin
+                Announcement</strong></span> macro for an example.</p></div><div class="footnote"><p><sup>[<a name="ftn.id537928" href="#id537928" class="para">3</a>] </sup>Examine the actual file for a more complete example</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="plugin-implement-quicknotepadplugin.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="plugin-implement.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="plugin-implement-editbus.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">The QuickNotepadPlugin Class </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The EditBus</td></tr></table></div></body></html>

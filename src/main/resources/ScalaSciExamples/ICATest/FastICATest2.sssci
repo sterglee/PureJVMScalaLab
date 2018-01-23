@@ -1,0 +1,71 @@
+
+//  this example requires the installation of the fastICA toolbox
+
+//          Creates a FastICA standard configuration:
+
+var t = inc(0, 0.01, 10)
+var N = t.length  // signal size
+var sig1 = sin(2.3*t)+1.23*cos(0.663*t)
+var sig2 = 6.7*sin(5.3*t)-1.23*cos(4.3*t)
+var sig3 = 0.7*sin(0.53*t)+1.23*cos(0.43*t)
+var sig4 = sin(5.2*t)
+var noise = vrand(N)
+
+var mixingMatrix = Array.ofDim[Double](5, 5)
+mixingMatrix(0)(0) = 0.5;  mixingMatrix(0)(1) = 0.5;  mixingMatrix(0)(2) = 0.7;  mixingMatrix(0)(3) = 0.25; mixingMatrix(0)(4) = 0.53;   
+mixingMatrix(1)(0) = 0.3;  mixingMatrix(1)(1) = 0.7; mixingMatrix(1)(2) = 0.7;  mixingMatrix(1)(3) = 0.25; mixingMatrix(1)(4) = 0.53;
+ mixingMatrix(2)(0) = 0.6; mixingMatrix(2)(1) = 0.2;  mixingMatrix(2)(2) = 0.1;  mixingMatrix(2)(3) = 0.45; mixingMatrix(2)(4) = 0.3;
+mixingMatrix(3)(0) = 0.2; mixingMatrix(3)(1) = 0.6;   mixingMatrix(3)(2) = 0.2;  mixingMatrix(3)(3) = 0.2; mixingMatrix(3)(4) = 0.3;
+ mixingMatrix(4)(0) = 0.3; mixingMatrix(4)(1) = 0.5; mixingMatrix(4)(2) = 0.3;  mixingMatrix(4)(3) = 0.54; mixingMatrix(4)(4) = 0.9;
+
+//   matrix with the signals before the mixing
+ var initialSigs  = Array.ofDim[Double](5, 1)
+ initialSigs(0) = sig1.getv;  initialSigs(1) = sig2.getv;  initialSigs(2) = sig3.getv
+ initialSigs(3) = sig4.getv;  initialSigs(4) = noise.getv; 
+ 
+// perform mixing of signals
+var mixedSignal = mixingMatrix * initialSigs
+
+// join some filters into a standard filter
+import org.fastica._ 
+var filter = new CompositeEVFilter()
+ filter.add(new BelowEVFilter(1.0e-8, false))
+ filter.add(new SortingEVFilter(true, true))
+    // build a ICA configuration
+/*  Creates a FastICA configuration. 
+ * @param numICs the number of independent components
+ * @param approach deflation or symmetric approach algorithm
+ * @param stepSize the step size of an approach
+ * @param epsilon accuracy exit condition
+ * @param maxIterations the maximum number of iterations
+ * @param initialMixingMatrix the initial mixing matrix, can be <code>null</code>
+ */
+ var numICs = 5
+ var config = new FastICAConfig(numICs,  FastICAConfig.Approach.DEFLATION, 1.0, 1.0e-16, 1000, null);
+	
+	// build the progress listener
+var listener =	new ProgressListener()
+			{
+				def progressMade(state: org.fastica.ProgressListener.ComputationState,  component: Int,  iteration: Int,  maxComps: Int) = 
+				{
+					println( "\r" +  Integer.toString(component) + " - " + Integer.toString(iteration) + "     ");
+				}
+			}
+// perform the independent component analysis
+	println("Performing ICA");
+	var fica = new FastICA(mixedSignal.getv, config, new Power3CFunction(), filter, listener)
+        println();
+
+var ICAVectors= fica.getICVectors
+figure(1);  subplot(5,1,1); plot(sig1); subplot(5,1,2); plot(sig2); 
+subplot(5,1,3); plot(sig3);  subplot(5,1,4); plot(sig4); 
+subplot(5,1,5); plot(noise); title("Original Signals");
+
+figure(2);   subplot(5,1,1); plot(ICAVectors(0)); subplot(5,1,2); plot(ICAVectors(1));
+subplot(5,1,3); plot(ICAVectors(2));  subplot(5,1,4); plot(ICAVectors(3));
+ subplot(5,1,5); plot(ICAVectors(4)); title("ICA Seperated");
+
+figure(3); subplot(2,1,1);  plot(sig1.getv, Color.RED, "sig1");  plot(sig2.getv, Color.GREEN, "sig2");  plot(noise.getv, Color.BLUE, "noise"); title("Original Signals");
+subplot(2,1,2);  plot(ICAVectors(0), Color.GREEN, "sig2"); plot(ICAVectors(1), Color.BLUE, "noise"); plot(ICAVectors(2), Color.RED, "sig1");   title("ICA Seperated");
+
+

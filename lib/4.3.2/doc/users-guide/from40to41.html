@@ -1,0 +1,19 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>From jEdit 4.0 to 4.1</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="index.html" title="jEdit 4.3 User's Guide"><link rel="up" href="updating-modes.html" title="Chapter 12. Updating Edit Modes"><link rel="prev" href="updating-modes.html" title="Chapter 12. Updating Edit Modes"><link rel="next" href="currentmodeformat.html" title="From jEdit 4.2 to 4.3"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">From jEdit 4.0 to 4.1</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="updating-modes.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Updating Edit Modes</th><td width="20%" align="right"> <a accesskey="n" href="currentmodeformat.html">Next</a></td></tr></table><hr></div><div class="section" title="From jEdit 4.0 to 4.1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="from40to41"></a>From jEdit 4.0 to 4.1</h2></div></div></div><p>In jEdit 4.1, the mode file grammar has been cleaned up somewhat.
+        As a result, some edit modes written for jEdit 4.0 and earlier need to
+        be updated:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Defining <code class="literal">&lt;WHITESPACE&gt;</code> rules is no
+                longer necessary and doing so will print warnings to the
+                activity logs.</p></li><li class="listitem"><p>The <code class="literal">&lt;KEYWORDS&gt;</code> tag no longer
+                accepts an <code class="literal">IGNORE_CASE</code> attribute. Set the
+                <code class="literal">IGNORE_CASE</code> attribute of the
+                <code class="literal">&lt;RULES&gt;</code> tag instead.</p></li><li class="listitem"><p>The <code class="literal">&lt;END&gt;</code> tag of the
+                <code class="literal">&lt;SPAN&gt;</code> rule used to be optional, in
+                which case any occurrence of the start string would cause the
+                remainder of the buffer to be highlighted with the span. In
+                jEdit 4.1, the <code class="literal">&lt;END&gt;</code> tag can no longer
+                be omitted, however a <code class="literal">&lt;SEQ&gt;</code> tag with a
+                <code class="literal">DELEGATE</code> attribute can be used to achieve the
+                same effect as endless span.</p></li><li class="listitem"><p>Defining <code class="literal">&lt;SEQ TYPE="NULL"&gt;</code> rules
+                for word separators is no longer necessary. Now, any
+                non-alphanumeric character not appearing in a keyword definition
+                or the ruleset's <code class="literal">NO_WORD_SEP</code> attribute is
+                considered a word separator.</p></li></ul></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="updating-modes.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="updating-modes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="currentmodeformat.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 12. Updating Edit Modes </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> From jEdit 4.2 to 4.3</td></tr></table></div></body></html>

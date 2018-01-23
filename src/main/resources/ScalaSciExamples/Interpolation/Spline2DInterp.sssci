@@ -1,0 +1,29 @@
+
+import  com.nr.NRUtil.buildVector
+import  java.lang.Math.abs
+
+
+import com.nr.interp.Spline2D_interp
+
+
+    var  xx1 = Array(1.0, 2.0, 3.0, 4.0)
+    var  xx2 = Array(1.0, 2.0, 3.0, 4.0)
+    var  x1 = buildVector(xx1)
+    var  x2 = buildVector(xx2)
+    
+    var  y = Array.ofDim[Double](4, 4)
+    
+
+    // Test Spline2D_interp
+    println("Testing Spline2D_interp")
+    for(i <- 0 until  4) 
+      for(j <- 0  until 4) 
+        y(i)(j) = xx1(i) + xx2(j)
+
+    var  z = new Spline2D_interp(x1, x2, y)
+
+    var res = z.interp(2.5, 2.5)  // this should be 5.0
+
+    if (res-5.0==0)
+     println("Correct")
+ 

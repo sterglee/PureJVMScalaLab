@@ -1,0 +1,32 @@
+// constructs association rules with the apriori algorithm
+
+//clear("all");
+var dataFile = getFile("Please specify your data file");
+
+var fr = new java.io.FileReader(dataFile);
+
+ // get the instances from the data file
+var instances = new weka.core.Instances(fr);
+
+// construct a WEKA Apriori associator object
+var aprioriObj = new weka.associations.Apriori()
+
+aprioriObj.buildAssociations(instances);
+
+// get the extracted association rules
+
+var aprioriRules = aprioriObj.toString();
+  // send the extracted rules to the Console
+println ("Extracted rules :  \n\n"+aprioriRules)
+
+//  display them also in a JTextArea
+var frame = new JFrame("Apriori Rules");
+var rulesArea = new JTextArea(aprioriRules);
+frame.add(rulesArea);
+frame.setSize(500, 500);
+frame.setVisible(true);
+
+
+
+
+

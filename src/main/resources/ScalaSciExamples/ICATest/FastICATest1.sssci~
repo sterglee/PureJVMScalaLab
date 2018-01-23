@@ -1,0 +1,43 @@
+//          Creates a FastICA standard configuration:
+
+var t = inc(0, 0.01, 10)
+var sig = sin(2.3*t)+1.23*cos(0.663*t)
+var N =1000  // signal size
+var noise = vrand(N)
+var initialSigs  = new Array[Array[Double]](2, N)
+for (k<-0 to N-1) {
+  initialSigs(0,k) = sig(k)
+  initialSigs(1,k) = noise(k)
+}
+
+var numICs = 2
+  // mixing matrix
+var A = new Array[Array[Double]](2,2)
+A(0,0)=2.1; A(0,1)=1.1; A(1,0)=0.1; A(1,1)=0.5
+   // apply source mixing matrix to mix signals
+var mixedSignal = A*initialSigs
+var sensorMat = mixedSignal.getv  // get matrix as double[][]
+
+var config = new org.fastica.FastICAConfig(numICs, org.fastica.FastICAConfig.Approach.DEFLATION, 1.0, 1.0e-14, 400, null)
+					
+// FastICAConfig(numICs, FastICAConfig.Approach approach, double stepSize, double epsilon, int maxIterations, double[][] initialMixingMatrix) 
+
+// run now the Fast ICA algorithm
+
+var  activationFunction = new org.fastica.TanhCFunction(1.0)
+var  filter = new org.fastica.CompositeEVFilter()
+filter.add(new org.fastica.BelowEVFilter(1.0e-12, false))
+filter.add(new org.fastica.SortingEVFilter(true, true))
+filter.add(new org.fastica.swing.DialogEVFilter(scalaExec.Interpreter.GlobalValues.scalalabMainFrame))
+
+// call the ICA algorithm
+var fica = new org.fastica.FastICA(sensorMat, numICs) //config, activationFunction,  filter, null)
+
+var ICAVectors= fica.getICVectors
+figure(1); subplot(2,1,1); plot(sig); subplot(2,1,2); plot(noise); title("Original Signals"); 
+
+figure(2); subplot(2,1,1); plot(ICAVectors(0)); subplot(2,1,2); plot(ICAVectors(1)); title("ICA Seperated");  
+
+
+//FastICA(double[][] inVectors, FastICAConfig config, ContrastFunction conFunction, EigenValueFilter evFilter, ProgressListener listener) 
+    

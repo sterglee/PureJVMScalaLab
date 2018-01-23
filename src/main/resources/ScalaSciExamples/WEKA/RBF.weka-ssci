@@ -1,0 +1,68 @@
+
+// this script  requires  WEKA toolbox to be first installed
+import weka.classifiers.functions._
+import weka.classifiers.Classifier
+import weka.core._
+import java.io._
+import weka.core.converters.ConverterUtils._
+
+
+var RBFNet = new RBFNetwork
+var NClusters = 8
+// set now RBF parameters
+RBFNet.setNumClusters(NClusters)
+
+//var dataFile = getFile("Please specify your data with numeric data for the RBFNetwork")   // get the datafile from the user
+
+var dataFile = "/home/sp/data/UCI/sonar.arff"
+   //  read the datafile
+var allData = DataSource.read(dataFile)
+allData.setClassIndex(allData.numAttributes()-1)
+
+
+
+
+// construct the training set and testing sets
+var trainSet = new Instances(allData, 0)  // create an initial empty training set
+var testSet = new Instances(allData, 0)    // create an initial empty testing set
+
+var UseInTrain = true  // controls whether to add the Instance at the training set or at the testing set
+var enumInstances = allData.enumerateInstances()
+while  (enumInstances.hasMoreElements) {
+ var currInstance  = enumInstances.nextElement.asInstanceOf[Instance]
+ if (UseInTrain)
+    trainSet.add(currInstance)
+ else
+   testSet.add(currInstance)
+ UseInTrain = !UseInTrain
+}
+
+RBFNet.buildClassifier(trainSet)   // build an RBF classifier on the training set
+// test the classifier on the testing set
+// extract the class labels
+var enumTestInstances = testSet.enumerateInstances()  
+var numTestingInstances = testSet.numInstances()
+var classLabels = new Array[Double](numTestingInstances)
+var predictedLabels  = new Array[Double](numTestingInstances)
+var predictedLabels2  = new Array[Double](numTestingInstances)
+
+
+var cnt=0
+var classIdx = testSet.classIndex   // get class index
+while (enumTestInstances.hasMoreElements) {   // for all the elements of the testing set
+   var currInstance = enumTestInstances.nextElement.asInstanceOf[Instance]
+   var distForInstance = RBFNet.distributionForInstance(currInstance)
+   var classOfInstance =  currInstance.toDoubleArray.apply(classIdx)
+   classLabels(cnt) = classOfInstance
+   predictedLabels(cnt) = distForInstance(0)
+   predictedLabels2(cnt) = distForInstance(1)
+   cnt += 1
+}
+   
+figure(1)
+linePlotsOn
+hold("on")
+plot(predictedLabels, Color.RED, "predicted");
+plot(classLabels, Color.BLUE, "actual class"); title("MLP Network prediction")
+
+
