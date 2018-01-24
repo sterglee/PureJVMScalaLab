@@ -48,6 +48,10 @@ https://smile.amazon.com/Scientific-Computing-ScalaLab-Java-Platform/dp/36598459
 
 `Then execute the appropriate .bat script for Windows or the corresponding .sh script for UNIX users. The script configures the java.library.path and some JVM parameters.`
 
+`Useful toolboxes for ScalaLab are provided with the project: `
+
+https://github.com/sterglee/ScalaLabPrebuiltToolboxes
+
 
 
 `To build ScalaLab with SBT:`
@@ -73,9 +77,6 @@ https://smile.amazon.com/Scientific-Computing-ScalaLab-Java-Platform/dp/36598459
 
 
 
-`Useful toolboxes for ScalaLab are provided with the project: `
-
-https://github.com/sterglee/ScalaLabPrebuiltToolboxes
 
 
 `Also, in order to run the produced .jar executable from the sbt build,
