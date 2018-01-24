@@ -261,6 +261,8 @@ public class plotTypes {
             return currentPlot;
 }
 
+ 
+ // convert float arrays to double arrays, then plot
  static public PlotPanel plot(float  [] x, float [] y, float[] z, String name) {
          return plot(arrToDouble(x), arrToDouble(y), arrToDouble(z), name);
        }
@@ -277,6 +279,8 @@ public class plotTypes {
             return currentPlot;
 }
 
+ 
+ // convert float arrays to double arrays then plot
 static public PlotPanel plot(float  [] x, float [] y, float[] z) {
          return plot(arrToDouble(x), arrToDouble(y), arrToDouble(z));
        }
@@ -288,6 +292,7 @@ static public PlotPanel plot(float  [] x, float [] y, float[] z) {
         String name = "2-D Plot";
         newPlot2D();
 
+        // the two-dimensional matrix specifies a column vector
        if (M ==1) {
            double [] y1 = new double[N];
            double [] y2 = new double[N];
@@ -301,6 +306,7 @@ static public PlotPanel plot(float  [] x, float [] y, float[] z) {
                 ((Plot2DPanel)currentPlot).addLinePlot(name, y1,  y2);
        }
        else if (N==1) {
+         // the two-dimensional matrix specifies a row vector 
            double [] y1 = new double[M];
            double [] y2 = new double[M];
            for (int c=0; c<M; c++) {
@@ -315,7 +321,7 @@ static public PlotPanel plot(float  [] x, float [] y, float[] z) {
        }
        
        else {
-       
+    //  a two-dimensional matrix has been specified, plot its first two rows   
       	if (scatterPlotOn)
                 ((Plot2DPanel)currentPlot).addScatterPlot(name, x[0], x[1]);
             else
@@ -324,48 +330,6 @@ static public PlotPanel plot(float  [] x, float [] y, float[] z) {
  
        
   return currentPlot;
-}
-
-  static public PlotPanel plot(double [][] x, String name) {
-       int N = x.length;
-       int M = x[0].length;
-      
-        newPlot2D();
-if (M ==1) {
-           double [] y1 = new double[N];
-           double [] y2 = new double[N];
-           for (int c=0; c<N; c++) {
-               y1[c] = c;
-               y2[c] = x[c][0];
-           }
-       if (scatterPlotOn)
-                ((Plot2DPanel)currentPlot).addScatterPlot(name,  y1, y2);
-         else
-                ((Plot2DPanel)currentPlot).addLinePlot(name, y1,  y2);
-       }
-       else if (N==1) {
-           double [] y1 = new double[M];
-           double [] y2 = new double[M];
-           for (int c=0; c<M; c++) {
-               y1[c] = c;
-               y2[c] = x[0][c];
-           }
-        if (scatterPlotOn)
-                ((Plot2DPanel)currentPlot).addScatterPlot(name, y1, y2);
-         else
-                ((Plot2DPanel)currentPlot).addLinePlot(name,  y1,  y2);
-       
-       }
-       
-       else {
-       
-      	if (scatterPlotOn)
-                ((Plot2DPanel)currentPlot).addScatterPlot(name, x[0], x[1]);
-            else
-               ((Plot2DPanel)currentPlot).addLinePlot(name,  x[0], x[1]);
-       }
- 
-return currentPlot;
 }
 
   static public PlotPanel plot(double [][] x, Color color, String name) {
@@ -414,48 +378,16 @@ return currentPlot;
 
 
   static public PlotPanel plot(double [][] x, Color color) {
-      String name = "2D Plot";
-       int N = x.length;
-       int M = x[0].length;
-      
-        newPlot2D();
-
-     if (M ==1) {
-           double [] y1 = new double[N];
-           double [] y2 = new double[N];
-           for (int c=0; c<N; c++) {
-               y1[c] = c;
-               y2[c] = x[c][0];
-           }
-       if (scatterPlotOn)
-                ((Plot2DPanel)currentPlot).addScatterPlot(name, color, y1, y2);
-         else
-                ((Plot2DPanel)currentPlot).addLinePlot(name, color, y1,  y2);
-       }
-       else if (N==1) {
-           double [] y1 = new double[M];
-           double [] y2 = new double[M];
-           for (int c=0; c<M; c++) {
-               y1[c] = c;
-               y2[c] = x[0][c];
-           }
-           if (scatterPlotOn)
-                ((Plot2DPanel)currentPlot).addScatterPlot(name, color, y1, y2);
-         else
-                ((Plot2DPanel)currentPlot).addLinePlot(name, color, y1,  y2);
-       
-       }
-       
-       else {
-       
-      	if (scatterPlotOn)
-                ((Plot2DPanel)currentPlot).addScatterPlot(name, color,  x[0], x[1]);
-            else
-               ((Plot2DPanel)currentPlot).addLinePlot(name, color, x[0], x[1]);
-       }
- 
-     return currentPlot;
+      String name = "2D Plot";  // default name
+   
+      return plot(x, color, name);
 }
+  
+   static public PlotPanel plot(double [][] x, String name) {
+       Color color = Color.BLACK;  // default color
+       
+       return plot(x, color, name);
+   }
   
   
        static public PlotPanel plot(float  [] []x) {
@@ -560,18 +492,34 @@ return currentPlot;
         ((Plot3DPanel)currentPlot).addBarPlot(name, x, y, z);
         return currentPlot;
 	}
-
+ 
+ static public PlotPanel plot3d_bar(double [] x, double [] y, double [] z) {
+     String name = "3D bar plot"; // default name
+     return plot3d_bar(x, y, z, name);
+ }
+ 
+ 
 static public PlotPanel plot3d_bar(float  [] x, float [] y, float[] z, String name) {
          return plot3d_bar(arrToDouble(x), arrToDouble(y), arrToDouble(z), name);
        }
 
 
+ static public PlotPanel plot3d_bar(float []x, float [] y, float [] z) {
+   String name = "3D bar plot"; // default name    
+   return plot3d_bar(x, y, z, name);
+ }
+ 
 static public PlotPanel surf(double [] x, double [] y, double [][]z,  String name) {
     if ( currentPlot == null || (currentPlot instanceof  Plot3DPanel)==false)
             figure3d();
     ((Plot3DPanel)currentPlot).addGridPlot(name,x, y, z);
       return currentPlot;
     }
+
+static public PlotPanel surf(double[] x, double [] y, double [][] z) {
+    String name = "Surface Plot";  // default name
+    return surf(x, y, z, name);
+}
 
   static public PlotPanel surf(double [] x, double [] y, double [][]z, Color color,  boolean drawLines, boolean fillShape, String name) {
      if (currentPlot == null ||  (currentPlot instanceof  Plot3DPanel)==false)
@@ -580,13 +528,6 @@ static public PlotPanel surf(double [] x, double [] y, double [][]z,  String nam
       return currentPlot;
     }
 
-        static public PlotPanel surf(Vec  x, double [] y, double [][]z,  String name) {
-               if (currentPlot == null ||  (currentPlot instanceof  Plot3DPanel)==false)
-                   figure3d();
-                ((Plot3DPanel)currentPlot).addGridPlot(name,x.getv(), y, z);
-		return currentPlot;
-	}
-        
         
         static public PlotPanel surf(double []  x, Vec  y, double [][]z,  String name) {
                if (currentPlot == null || (currentPlot instanceof  Plot3DPanel)==false)
@@ -644,17 +585,7 @@ static public PlotPanel surf(double [] x, double [] y, double [][]z,  String nam
 		return currentPlot;
 	}
         
-
-  // specify Color also
-static public PlotPanel surf(double [] x, double [] y, double [][]z) {
-                if (currentPlot == null)
-                   figure3d();
-                String name = "Surface Plot";
-                ((Plot3DPanel)currentPlot).addGridPlot(name,x, y, z);
-                return currentPlot;
-	}
-
-
+        
   static public PlotPanel surf(float  [] x, float [] y, float[] []z) {
          return surf(arrToDouble(x), arrToDouble(y), arrToDoubleDouble(z));
        }
@@ -692,6 +623,10 @@ static public PlotPanel plot2d_scatter(double []  x,  double [] y, String name) 
             return currentPlot;
         }
 
+static public PlotPanel plot2d_scatter(double [] x, double [] y) {
+    String name = "2-D Scatter Plot";  // default name
+    return plot2d_scatter(x, y, name);
+}
 
 static public PlotPanel plot2d_scatter(float  [] x, float [] y, String name) {
          return plot2d_scatter(arrToDouble(x), arrToDouble(y), name);
