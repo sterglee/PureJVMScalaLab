@@ -72,6 +72,12 @@ https://smile.amazon.com/Scientific-Computing-ScalaLab-Java-Platform/dp/36598459
 `The UNIX script runSbt.sh accomplishes that, but for Windows you should set the variable using the Control Panel.`
 
 
+
+`Useful toolboxes for ScalaLab are provided with the project: `
+
+https://github.com/sterglee/ScalaLabPrebuiltToolboxes
+
+
 `Also, in order to run the produced .jar executable from the sbt build,
 using the providing scripts, you should rename it to ScalaLab.jar.`
 
